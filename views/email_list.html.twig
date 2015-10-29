@@ -1,0 +1,40 @@
+{% extends "CeBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'menu.users'|trans }}
+{% endblock %}
+
+{% block headline %}{{ 'menu.users'|trans }}{% endblock headline %}
+
+{% block content %}
+    <div class="col-sm-12">
+        <div class="kit-grid-buttons">
+            <a href="{{ path('admin_emails_export', {'kitdg_paginator_grid_currentPage': grid.getPaginator.getCurrentPage}) }}"
+               class="btn btn-primary">
+                {{ 'admin.emails.export'|trans }}
+            </a>
+        </div>
+        <div class="kit-grid-wrapper">
+            {% embed 'KitpagesDataGridBundle:Grid:bootstrap-grid.html.twig' with {'grid': grid} %}
+                {% block kit_grid_thead_column %}
+                    <th>{{ 'admin.emails.grid.created'|trans }}</th>
+                    <th>{{ 'admin.emails.grid.isConfirm'|trans }}</th>
+                {% endblock %}
+                {% block kit_grid_tbody_column %}
+                    <td>
+                        {{ item['e.createdAt'] | date("m/d/Y") }}
+                    </td>
+                    <td>
+                        {%if item['e.isConfirm'] == 1 %}
+                            <span class="glyphicon glyphicon-ok"></span>
+                            {{ 'admin.emails.grid.confirm'|trans }}
+                        {%else%}
+                            <span class="glyphicon glyphicon-remove"></span>
+                            {{ 'admin.emails.grid.unconfirm'|trans }}
+                        {% endif %}
+                    </td>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock %}

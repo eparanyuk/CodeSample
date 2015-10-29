@@ -1,0 +1,14 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <service id="ce.email_notifier" class="CeBundle\Services\EmailNotifier">
+        <argument type="service" id="mailer"/>
+        <argument type="service" id="translator"/>
+        <argument type="service" id="twig"/>
+        <argument type="service" id="router"/>
+        <argument>%mailer_user%</argument>
+    </service>
+    <service id="ce.email_collector.form.type" class="CeBundle\Form\EmailCollectorFormType">
+        <tag name="form.type" alias="ce_email_collector"/>
+    </service>
+</container>

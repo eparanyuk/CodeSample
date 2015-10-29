@@ -1,0 +1,47 @@
+{% extends "CeBundle::layout.html.twig" %}
+
+{% block title %}{{ 'title.main_page'|trans }}{% endblock title %}
+
+{% block page_header %}{% endblock page_header %}
+
+{% form_theme subscribe_form _self %}
+
+{% block form_row %}
+    {{ form_widget(form, _context) }}
+{% endblock form_row %}
+
+{% block form_widget_compound %}
+    {{ block('form_rows_visible') }}
+{% endblock form_widget_compound %}
+
+{% block content %}
+    {% if not app.user %}
+        <div class="subscribe-block">
+            <div class="container">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2>{{ 'form.email_collector.label' | trans }}</h2>
+                    <form method="post" action="" class="form-horizontal" novalidate="novalidate">
+                        {{ form_errors(subscribe_form) }}
+                        {{ form_errors(subscribe_form.email) }}
+                        <div class="input-group">
+                            {{ form_widget(subscribe_form.email, { 'attr': {'class': 'form-control'}}) }}
+                            {{ form_rest(subscribe_form) }}
+                            <span class="input-group-btn">
+                                <input type='submit' class="btn-u" value='{{ 'form.ok_submit' | trans }}'>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        {% if app.session.flashbag.has('registration_form_success') and app.session.flashbag.get('registration_form_success') %}
+            ga('send', 'event', 'registration_form', 'success');
+        {% endif %}
+    </script>
+{% endblock foot_script %}
