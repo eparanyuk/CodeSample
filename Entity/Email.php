@@ -112,6 +112,9 @@ class Email
         return $this->isConfirm;
     }
 
+    /**
+     * @return string
+     */
     public function isConfirmed()
     {
         return $this->isConfirm ? 'confirmed' : 'notconfirmed';
