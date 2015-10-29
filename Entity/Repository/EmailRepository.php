@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CeBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
